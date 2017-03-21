@@ -1,18 +1,17 @@
 cmake_minimum_required(VERSION 2.8.3)
+add_definitions(-std=c++11)
 set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 #set(CMAKE_CXX_FLAGS "-std=gnu++11 ${CMAKE_CXX_FLAGS}")
-add_definitions(-std=c++11)
-
 project(motor_communication)
 
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS geometry_msgs roscpp serial std_msgs  )
+find_package(catkin REQUIRED COMPONENTS geometry_msgs roscpp std_msgs  )
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
-
+#find_package(libusb-1.0 REQUIRED)
  
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -52,9 +51,9 @@ find_package(catkin REQUIRED COMPONENTS geometry_msgs roscpp serial std_msgs  )
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
- INCLUDE_DIRS include
- LIBRARIES ${PROJECT_NAME}
- CATKIN_DEPENDS geometry_msgs serial std_msgs 
+# INCLUDE_DIRS include
+# LIBRARIES ${PROJECT_NAME}
+ CATKIN_DEPENDS geometry_msgs std_msgs 
 #  DEPENDS 
 )
 
@@ -72,19 +71,13 @@ include_directories(include
 
 
 ## Declare a cpp library
-add_library(${PROJECT_NAME} src/motor_communication.cpp)
-
+#add_library(${PROJECT_NAME} src/motor_communication.cpp)
+#target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 
 ## Declare a cpp executable
-# add_executable(object_node src/object_node.cpp)
-add_executable(motor_communication_node src/motor_communication_node.cpp)
-add_dependencies(motor_communication_node ${PROJECT_NAME})
-target_link_libraries(motor_communication_node ${PROJECT_NAME} ${catkin_LIBRARIES})
-
-
 add_executable(motor_control_node src/motor_control_node.cpp)
-add_dependencies(motor_control_node ${PROJECT_NAME})
-target_link_libraries(motor_control_node ${PROJECT_NAME} ${catkin_LIBRARIES})
+#add_dependencies(motor_control_node ${PROJECT_NAME})
+target_link_libraries(motor_control_node ${catkin_LIBRARIES})
  
 #############
 ## Install ##
@@ -102,17 +95,17 @@ target_link_libraries(motor_control_node ${PROJECT_NAME} ${catkin_LIBRARIES})
 
 
 ## Mark executables and/or libraries for installation
-install(TARGETS  ${PROJECT_NAME} motor_communication_node motor_control_node
+install(TARGETS  motor_control_node
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 ## Mark cpp header files for installation
-install(DIRECTORY include/${PROJECT_NAME}/
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-  FILES_MATCHING PATTERN "*.h"
-  PATTERN ".svn" EXCLUDE
-)
+#install(DIRECTORY include/${PROJECT_NAME}/
+#  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+#  FILES_MATCHING PATTERN "*.h"
+#  PATTERN ".svn" EXCLUDE
+#)
 install(DIRECTORY launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
   USE_SOURCE_PERMISSIONS
@@ -137,5 +130,3 @@ install(DIRECTORY launch
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-
-set(CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS}")

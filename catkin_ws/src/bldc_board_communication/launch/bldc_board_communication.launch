@@ -1,0 +1,4 @@
+<launch>
+ <node pkg="bldc_board_communication" type="bldc_board_communication_node" name="bldc_board_communication_node" output="screen">  
+  </node>
+</launch>
