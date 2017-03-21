@@ -41,7 +41,7 @@ export PATH=$PATH:/root:/sbin:/usr/sbin:/usr/local/sbin
 
 # Look for libraries in local folder as well
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}.
-export ROS_HOSTNAME=192.168.43.102
-export ROS_MASTER_URI=http://192.168.43.102:11311
+export ROS_HOSTNAME=192.168.43.121
+export ROS_MASTER_URI=http://192.168.43.121:11311
 source /opt/ros/indigo/setup.bash
 source /root/catkin_ws/devel/setup.bash
