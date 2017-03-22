@@ -1,8 +1,0 @@
-/root/catkin_ws/build/manual_control/CMakeFiles/_catkin_empty_exported_target.dir
-/root/catkin_ws/build/manual_control/CMakeFiles/clean_test_results.dir
-/root/catkin_ws/build/manual_control/CMakeFiles/download_extra_data.dir
-/root/catkin_ws/build/manual_control/CMakeFiles/doxygen.dir
-/root/catkin_ws/build/manual_control/gtest/CMakeFiles/gtest.dir
-/root/catkin_ws/build/manual_control/gtest/CMakeFiles/gtest_main.dir
-/root/catkin_ws/build/manual_control/CMakeFiles/run_tests.dir
-/root/catkin_ws/build/manual_control/CMakeFiles/tests.dir
