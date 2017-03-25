@@ -11,6 +11,10 @@ namespace bldcInterface
 
 BLDCInterface::BLDCInterface()
 {
+	// flush the remote device
+	std::array<char, 64> mFlushBuffer;
+	while (0 < mInterface.receive(mFlushBuffer.data(), mFlushBuffer.size()));
+
 	// fetch the config from the remote device
 	std::array<uint8_t, 1> getCommand = {1};
 	mInterface.send(getCommand.data(), getCommand.size());
@@ -39,6 +43,7 @@ BLDCInterface::BLDCInterface()
 		iter += format.size()+1;
 		mConfigurations[name] = handle;
 	}
+
 }
 
 BLDCInterface::~BLDCInterface()

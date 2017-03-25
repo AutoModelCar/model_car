@@ -22,6 +22,7 @@ class bldc_board_communication
     bldcInterface::BLDCInterface iface;
     bldcInterface::BLDCInterface::ConfigurationHandle<uint8_t> enMotorHandle;
     bldcInterface::BLDCInterface::ConfigurationHandle<float> speedHandle;
+    bldcInterface::BLDCInterface::ConfigurationHandle<float> speedFeedbackHandle;
     bldcInterface::BLDCInterface::ConfigurationHandle<std::array<uint16_t, 2> > steeringHandle;
     bldcInterface::BLDCInterface::ConfigurationHandle<std::array<uint32_t, 10> > ledFrontHandle;
     bldcInterface::BLDCInterface::ConfigurationHandle<std::array<uint32_t, 11> > ledBackHandle;

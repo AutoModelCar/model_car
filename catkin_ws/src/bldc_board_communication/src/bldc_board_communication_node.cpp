@@ -1,5 +1,6 @@
 #include <bldc_board_communication/bldc_board_communication.h>
 #include <std_msgs/UInt32MultiArray.h>
+#include <std_msgs/Float64.h>
 #include <iostream>
 
 class bldc_board_communication_node
@@ -11,6 +12,7 @@ class bldc_board_communication_node
     ros::Subscriber sub_stop_;
     ros::Subscriber sub_led_front_;
     ros::Subscriber sub_led_back_;
+    ros::Publisher pub_current_speed_;
 
   public:
     bldc_board_communication_node(ros::NodeHandle nh) : nh_(nh)
@@ -20,23 +22,22 @@ class bldc_board_communication_node
       sub_stop_ = nh_.subscribe( "bldc_board_communication/stop_start", 1,  &bldc_board_communication_node::motorStopStartCallback,this);
       sub_led_front_ = nh_.subscribe( "bldc_board_communication/led_front", 1,  &bldc_board_communication_node::ledFrontCallback,this);
       sub_led_back_ = nh_.subscribe( "bldc_board_communication/led_back", 1,  &bldc_board_communication_node::ledBackCallback,this);
+      pub_current_speed_ = nh_.advertise<std_msgs::Float64>(nh_.resolveName("bldc_board_communication/current_speed_feedback"), 1);
       std::cout << "bldc_board_communication_node initialized" << std::endl;
     }
     ~bldc_board_communication_node(){}
-    void motorSpeedCallback(const std_msgs::Int32 speed_value);
+    void motorSpeedCallback(const std_msgs::Float64 speed_value);
     void steeringCallback(const std_msgs::Int16 steering_value);
     void motorStopStartCallback(const std_msgs::Int16 stop_value);
     void ledFrontCallback(const std_msgs::UInt32MultiArray msg);
     void ledBackCallback(const std_msgs::UInt32MultiArray msg);
+    void publishCurrentSpeedFeedback();
     bldc_board_communication bldc;
 };
 
-void bldc_board_communication_node::motorSpeedCallback(const std_msgs::Int32 speed_value)
+void bldc_board_communication_node::motorSpeedCallback(const std_msgs::Float64 speed_value)
 {
-  int speed;
-  speed = speed_value.data;
-  // std::cout << "speed: " << speed << std::endl;
-  bldc.run(float(speed));
+  bldc.run(float(speed_value.data));
 }
 
 void bldc_board_communication_node::steeringCallback(const std_msgs::Int16 steering_value)
@@ -75,6 +76,13 @@ void bldc_board_communication_node::ledBackCallback(const std_msgs::UInt32MultiA
   bldc.setLedBack(led_values);
 }
 
+void bldc_board_communication_node::publishCurrentSpeedFeedback() {
+  std_msgs::Float64 msg;
+  msg.data = bldc.getSpeed();
+  // std::cout << "speed = " << msg.data << std::endl;
+  pub_current_speed_.publish(msg);
+}
+
 int main(int argc, char **argv) 
 {
   ros::init(argc, argv, "bldc_board_communication_node");
@@ -85,7 +93,14 @@ int main(int argc, char **argv)
   stop_value.data=1;
   MC1.motorStopStartCallback(stop_value);
 
-  ros::spin();
+  ros::Rate loop_rate(10);
+  while (ros::ok()) {
+    MC1.publishCurrentSpeedFeedback();
+
+    ros::spinOnce();
+    loop_rate.sleep();
+  }
+
 
   return 0;
 }
