@@ -25,7 +25,7 @@
     <arg name="enable_depth"        default="true" />
     <arg name="enable_color"        default="true" />
     <arg name="enable_ir"           default="true" />
-    <arg name="enable_ir2"          default="true" />
+    <arg name="enable_ir2"          default="false" />
     <arg name="enable_fisheye"      default="false" />
     <arg name="enable_imu"          default="false" />
 
@@ -35,7 +35,7 @@
 <!-- realsense_camera -->
 
     <node pkg="nodelet" type="nodelet" name="driver"
-        args="load realsense_camera/$(arg camera_type)Nodelet $(arg manager)">
+        args="load realsense_camera/$(arg camera_type)Nodelet $(arg manager)" respawn="true" >
         <param name="serial_no"               type="str"  value="$(arg serial_no)" />
         <param name="usb_port_id"             type="str"  value="$(arg usb_port_id)" />
         <param name="camera_type"             type="str"  value="$(arg camera_type)" />
