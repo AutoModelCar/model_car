@@ -28,7 +28,7 @@ BLDCInterface::BLDCInterface()
 
 	// receive the rest
 	while (received < actualPayloadLen + 3) {
-		received += mInterface.receive(payload.data()+received, std::min(64U, payload.size()-received));
+		received += mInterface.receive(payload.data()+received, std::min(64U, (unsigned int)payload.size()-received));
 	}
 	auto iter = payload.begin() + 3;
 	int idx = 0;

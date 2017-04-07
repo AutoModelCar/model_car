@@ -19,10 +19,14 @@ class motor_control
     ros::Publisher pub_bldc_steering_;
     ros::Publisher pub_bldc_stop_start_;
     ros::Publisher pub_velocity_;
+    
+    int steering_min, steering_max;
 
   public:
     motor_control(ros::NodeHandle nh) : nh_(nh)
     {
+      nh_.param<int>("steering_min", steering_min, 900);
+	  nh_.param<int>("steering_max", steering_max, 2000);
       sub_speed_ = nh_.subscribe( "motor_control/speed", 1, &motor_control::motorSpeedCallback,this);
       sub_speed_feedback_ = nh_.subscribe( "bldc_board_communication/current_speed_feedback", 1, &motor_control::publishMotorTwist,this);
       sub_steering_ = nh.subscribe( "manual_control/steering", 1, &motor_control::steeringCallback,this);
@@ -53,7 +57,11 @@ void motor_control::motorSpeedCallback(const std_msgs::Int32 speed_value)
 
 void motor_control::steeringCallback(const std_msgs::Int16 steering_value)
 {
-  pub_bldc_steering_.publish(steering_value);
+  if(steering_value.data >= steering_min && steering_value.data <= steering_max) {
+  	pub_bldc_steering_.publish(steering_value);
+  } else {
+  	ROS_ERROR("Steering value out of bounds! Allowed min = %i, Allowed max = %i, Value = %i", steering_min, steering_max, steering_value.data);
+  }
 }
 
 void motor_control::motorStopStartCallback(const std_msgs::Int16 stop_value) {

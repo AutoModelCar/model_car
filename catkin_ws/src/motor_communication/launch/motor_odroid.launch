@@ -1,6 +1,10 @@
 <launch>
  <node pkg="motor_communication" type="motor_control_node" name="motor_control_node" output="screen">
     <remap from="motor_control/speed" to="manual_control/speed"/>
-    <remap from="motor_control/stop_start" to="manual_control/stop_start"/>   
+    <remap from="motor_control/stop_start" to="manual_control/stop_start"/>
+    
+    <!-- Steering Min/Max -->
+    <param name="steering_min" type="int" value="900" />
+    <param name="steering_max" type="int" value="2000"/>
   </node>
 </launch>

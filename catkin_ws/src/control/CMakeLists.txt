@@ -50,6 +50,7 @@ find_package(catkin REQUIRED roscpp std_msgs)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
+   CATKIN_DEPENDS std_msgs 
 #  DEPENDS system_lib
 )
 
@@ -61,7 +62,8 @@ catkin_package(
 ## Your package locations should be listed before other locations
 # include_directories(include)
 ## Include headers
-include_directories(
+include_directories(include
+	${catkin_INCLUDE_DIRS}
 )
 
 
