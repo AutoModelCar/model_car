@@ -12,7 +12,7 @@ motor_communication::motor_communication(): priv_nh_("~"), my_serial("/dev/ttyUS
   //my_serial.setTimeout(1000);
   //my_serial.Timeout.simpleTimeout(1000)
   init();
-  
+
 }
 
     //! Empty stub
@@ -33,22 +33,20 @@ void motor_communication::init()
 	  else
 	    ROS_ERROR("motor_communication::No.");
 
-    //SET BAUDRATE TO 115200
-    // bytes_wrote =my_serial.write("BAUD 115200\r\n");
-    // my_serial.close();
-    // my_serial.setPort(serial_port_);
-    // my_serial.setBaudrate(baud_rate_);
-    // my_serial.open();
-    // ROS_INFO("motor_communication::set Baudrate: %d",baud_rate_);
-
-
 	  bytes_wrote =my_serial.write("en\r\n");
-	  result = my_serial.read(4+2);
+    // read until new line terminates result string
+    result = "";
+    uint8_t c = '\0';
+    while (c  != '\n') {
+            my_serial.read(&c, 1);
+            if(c != '\n' and c != '\r') {
+                    result += char(c);
+            }
+    }
 	  ROS_INFO("motor_communication:: start:%s \n",result.c_str());
-
     }
     catch(const std::exception& e)
-    {	 
+    {
       	ROS_ERROR("motor_communication::could not find serial port");
     }
 }
@@ -57,11 +55,19 @@ void motor_communication::start()
     try
     {
       bytes_wrote =my_serial.write("en\r\n");
-      result = my_serial.read(4+2);
+      // read until new line terminates result string
+      result = "";
+      uint8_t c = '\0';
+      while (c  != '\n') {
+              my_serial.read(&c, 1);
+              if(c != '\n' and c != '\r') {
+                      result += char(c);
+              }
+      }
       ROS_INFO("motor_communication::start:%s \n",result.c_str());
     }
     catch(const std::exception& e)
-    {  
+    {
         ROS_ERROR("motor_communication::could not find serial port");
     }
 }
@@ -85,7 +91,7 @@ void motor_communication::run(int speed)
       //ROS_INFO("read speed:%s \n",result.c_str());
     }
     catch(const std::exception& e)
-    {	 
+    {
       	ROS_ERROR("motor_communication::could not find serial port");
     }
 }
@@ -93,9 +99,16 @@ void motor_communication::stop()
 {
 	try
 	{
-		//serial::Serial my_serial(serial_port_, baud_rate_, serial::Timeout::simpleTimeout(1000));
 		bytes_wrote =my_serial.write("di\r\n");
-		result = my_serial.read(4);
+    // read until new line terminates result string
+    result = "";
+    uint8_t c = '\0';
+    while (c  != '\n') {
+            my_serial.read(&c, 1);
+            if(c != '\n' and c != '\r') {
+                    result += char(c);
+            }
+    }
 		ROS_INFO("motor_communication::read di:%s \n",result.c_str());
 	}
 	catch(const std::exception& e)
@@ -108,16 +121,23 @@ double motor_communication::getSpeed()
 	try
 	{
 		bytes_wrote = my_serial.write("gn\r\n");
-		result = my_serial.read(7); // -12.000 to 12.000 rpm inital config.
+    // read until new line terminates result string
+    result = "";
+    uint8_t c = '\0';
+    while (c  != '\n') {
+            my_serial.read(&c, 1);
+            if(c != '\n' and c != '\r') {
+                    result += char(c);
+            }
+    }
 		//ROS_INFO("speed:%s \n",result.c_str());
     std::stringstream ss(result);
     double velocity;
     ss >> velocity; //string to double
-		return velocity; 
-		//return =atof(str_quan.c_str());
+		return velocity;
 	}
 	catch(const std::exception& e)
-	{  
+	{
 		ROS_ERROR("motor_communication::could not find serial port");
 	}
 }
