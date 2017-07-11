@@ -1,6 +1,6 @@
 #include <ros/ros.h>
 #include <sensor_msgs/LaserScan.h>
-#include <std_msgs/Int16.h>
+#include <std_msgs/Int32.h>
 #include <geometry_msgs/Twist.h>
 
 //parameters
@@ -14,7 +14,7 @@ public:
 		n_.param<int>("angle_front", angle_front, 40);
 		n_.param<int>("angle_back", angle_back, 40);
 		n_.param<float>("break_distance", break_distance, 0.45);
-		pubEmergencyStop_=nh.advertise<std_msgs::Int16>(nh.resolveName("manual_control/speed"), 1);
+		pubEmergencyStop_=nh.advertise<std_msgs::Int32>(nh.resolveName("manual_control/speed"), 1);
 		subScan_ = n_.subscribe("scan", 1, &auto_stop::scanCallback,this);
 		subTwist_ = n_.subscribe("motor_control/twist",1,&auto_stop::speedCallback,this); 
 	}
@@ -31,7 +31,7 @@ public:
 	    float  break_distance_=break_distance;
 	    if (abs(direction)>500)
 	    	break_distance_=(abs(direction)/500)*break_distance;
-	    std_msgs::Int16 speed;
+	    std_msgs::Int32 speed;
 	    speed.data=0;
 	    //ROS_INFO("speed %f",break_distance_);	
 		if(direction < 0){	//backw.

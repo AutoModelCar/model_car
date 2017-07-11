@@ -5,7 +5,7 @@
 ```
      $ git clone https://github.com/AutoModelCar/model_car.git
      $ cd model_car
-     $ git checkout version-2
+     $ git checkout version-2-kinetic
      $ scp -r catkin_ws root@192.168.1.199:./
 ```
 
