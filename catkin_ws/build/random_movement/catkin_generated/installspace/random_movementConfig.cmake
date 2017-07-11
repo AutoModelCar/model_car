@@ -109,7 +109,7 @@ if(NOT " " STREQUAL " ")
   endforeach()
 endif()
 
-set(libraries "random_movement")
+set(libraries "")
 foreach(library ${libraries})
   # keep build configuration keywords, target names and absolute libraries as-is
   if("${library}" MATCHES "^(debug|optimized|general)$")

@@ -1,13 +1,7 @@
 /*
- *  RPLIDAR SDK
+ * Copyright (c) 2014, RoboPeak
+ * All rights reserved.
  *
- *  Copyright (c) 2009 - 2014 RoboPeak Team
- *  http://www.robopeak.com
- *  Copyright (c) 2014 - 2016 Shanghai Slamtec Co., Ltd.
- *  http://www.slamtec.com
- *
- */
-/*
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
  *
@@ -30,6 +24,14 @@
  * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
+ */
+/*
+ *  RoboPeak LIDAR System
+ *  Lock abstract layer
+ *
+ *  Copyright 2009 - 2014 RoboPeak Team
+ *  http://www.robopeak.com
+ * 
  */
 
 #pragma once
@@ -71,20 +73,13 @@ public:
         }
 
 #else
-#ifdef _MACOS
-        if (timeout !=0 ) {
-            if (pthread_mutex_lock(&_lock) == 0) return LOCK_OK;
-        }
-#else
         if (timeout == 0xFFFFFFFF){
             if (pthread_mutex_lock(&_lock) == 0) return LOCK_OK;
         }
-#endif
         else if (timeout == 0)
         {
             if (pthread_mutex_trylock(&_lock) == 0) return LOCK_OK;
         }
-#ifndef _MACOS
         else
         {
             timespec wait_time;
@@ -107,7 +102,6 @@ public:
                 return LOCK_TIMEOUT;
             }
         }
-#endif
 #endif
 
         return LOCK_FAILED;

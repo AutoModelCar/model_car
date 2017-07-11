@@ -1,13 +1,7 @@
 /*
- *  RPLIDAR SDK
+ * Copyright (c) 2014, RoboPeak
+ * All rights reserved.
  *
- *  Copyright (c) 2009 - 2014 RoboPeak Team
- *  http://www.robopeak.com
- *  Copyright (c) 2014 - 2016 Shanghai Slamtec Co., Ltd.
- *  http://www.slamtec.com
- *
- */
-/*
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
  *
@@ -31,6 +25,15 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
+/*
+ *  RoboPeak LIDAR System
+ *  Data Packet IO protocol definition for RP-LIDAR
+ *
+ *  Copyright 2009 - 2014 RoboPeak Team
+ *  http://www.robopeak.com
+ *  
+ */
+
 
 #pragma once
 
@@ -45,8 +48,6 @@
 
 #define RPLIDAR_ANS_PKTFLAG_LOOP     0x1
 
-#define RPLIDAR_ANS_HEADER_SIZE_MASK        0x3FFFFFFF
-#define RPLIDAR_ANS_HEADER_SUBTYPE_SHIFT    (30)
 
 #if defined(_WIN32)
 #pragma pack(1)
@@ -63,7 +64,8 @@ typedef struct _rplidar_cmd_packet_t {
 typedef struct _rplidar_ans_header_t {
     _u8  syncByte1; // must be RPLIDAR_ANS_SYNC_BYTE1
     _u8  syncByte2; // must be RPLIDAR_ANS_SYNC_BYTE2
-    _u32 size_q30_subtype; // see _u32 size:30; _u32 subType:2;
+    _u32 size:30;
+    _u32 subType:2;
     _u8  type;
 } __attribute__((packed)) rplidar_ans_header_t;
 

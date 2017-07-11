@@ -36,14 +36,5 @@ Not searching for unused variables given on the command line.
 [36m--[0m Using Python nosetests: /usr/bin/nosetests-2.7
 [36m--[0m catkin 0.7.6
 [36m--[0m Configuring done
-CMake Warning (dev) at CMakeLists.txt:26 (add_dependencies):
-  Policy CMP0046 is not set: Error on non-existent dependency in
-  add_dependencies.  Run "cmake --help-policy CMP0046" for policy details.
-  Use the cmake_policy command to set the policy and suppress this warning.
-
-  The dependency target "auto_stop" of target "auto_stop_node" does not
-  exist.
-This warning is for project developers.  Use -Wno-dev to suppress it.
-
 [36m--[0m Generating done
 [36m--[0m Build files have been written to: /root/catkin_ws/build/auto_stop

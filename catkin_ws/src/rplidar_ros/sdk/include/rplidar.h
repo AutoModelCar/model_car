@@ -1,13 +1,7 @@
 /*
- *  RPLIDAR SDK
+ * Copyright (c) 2014, RoboPeak
+ * All rights reserved.
  *
- *  Copyright (c) 2009 - 2014 RoboPeak Team
- *  http://www.robopeak.com
- *  Copyright (c) 2014 - 2016 Shanghai Slamtec Co., Ltd.
- *  http://www.slamtec.com
- *
- */
-/*
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met:
  *
@@ -31,6 +25,14 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
+/*
+ *  RoboPeak LIDAR System
+ *  SDK All-in-one Header
+ *
+ *  Copyright 2009 - 2014 RoboPeak Team
+ *  http://www.robopeak.com
+ * 
+ */
 
 #pragma once
 
@@ -39,5 +41,3 @@
 #include "rplidar_cmd.h"
 
 #include "rplidar_driver.h"
-
-#define RPLIDAR_SDK_VERSION  "1.5.7"

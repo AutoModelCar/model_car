@@ -1,0 +1,1 @@
+/root/catkin_ws/devel/.private/motor_communication/share/motor_communication/cmake/motor_communicationConfig-version.cmake

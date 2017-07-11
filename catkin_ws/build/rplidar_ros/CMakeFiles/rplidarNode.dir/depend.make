@@ -21,9 +21,6 @@ CMakeFiles/rplidarNode.dir/sdk/src/hal/thread.cpp.o: /root/catkin_ws/src/rplidar
 CMakeFiles/rplidarNode.dir/sdk/src/hal/thread.cpp.o: /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/linux/arch_linux.h
 CMakeFiles/rplidarNode.dir/sdk/src/hal/thread.cpp.o: /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/linux/thread.hpp
 CMakeFiles/rplidarNode.dir/sdk/src/hal/thread.cpp.o: /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/linux/timer.h
-CMakeFiles/rplidarNode.dir/sdk/src/hal/thread.cpp.o: /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/macOS/arch_macOS.h
-CMakeFiles/rplidarNode.dir/sdk/src/hal/thread.cpp.o: /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/macOS/thread.hpp
-CMakeFiles/rplidarNode.dir/sdk/src/hal/thread.cpp.o: /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/macOS/timer.h
 CMakeFiles/rplidarNode.dir/sdk/src/hal/thread.cpp.o: /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/win32/arch_win32.h
 CMakeFiles/rplidarNode.dir/sdk/src/hal/thread.cpp.o: /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/win32/timer.h
 CMakeFiles/rplidarNode.dir/sdk/src/hal/thread.cpp.o: /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/win32/winthread.hpp
@@ -38,9 +35,7 @@ CMakeFiles/rplidarNode.dir/sdk/src/rplidar_driver.cpp.o: /root/catkin_ws/src/rpl
 CMakeFiles/rplidarNode.dir/sdk/src/rplidar_driver.cpp.o: /root/catkin_ws/src/rplidar_ros/./sdk/include/rplidar_protocol.h
 CMakeFiles/rplidarNode.dir/sdk/src/rplidar_driver.cpp.o: /root/catkin_ws/src/rplidar_ros/./sdk/include/rptypes.h
 CMakeFiles/rplidarNode.dir/sdk/src/rplidar_driver.cpp.o: /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/linux/timer.h
-CMakeFiles/rplidarNode.dir/sdk/src/rplidar_driver.cpp.o: /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/macOS/timer.h
 CMakeFiles/rplidarNode.dir/sdk/src/rplidar_driver.cpp.o: /root/catkin_ws/src/rplidar_ros/sdk/src/arch/linux/arch_linux.h
-CMakeFiles/rplidarNode.dir/sdk/src/rplidar_driver.cpp.o: /root/catkin_ws/src/rplidar_ros/sdk/src/arch/macOS/arch_macOS.h
 CMakeFiles/rplidarNode.dir/sdk/src/rplidar_driver.cpp.o: /root/catkin_ws/src/rplidar_ros/sdk/src/arch/win32/arch_win32.h
 CMakeFiles/rplidarNode.dir/sdk/src/rplidar_driver.cpp.o: /root/catkin_ws/src/rplidar_ros/sdk/src/arch/win32/timer.h
 CMakeFiles/rplidarNode.dir/sdk/src/rplidar_driver.cpp.o: /root/catkin_ws/src/rplidar_ros/sdk/src/hal/abs_rxtx.h

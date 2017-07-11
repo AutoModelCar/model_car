@@ -61,7 +61,8 @@ catkin_package(
 ## Your package locations should be listed before other locations
 # include_directories(include)
 ## Include headers
-include_directories(${catkin_INCLUDE_DIRS}
+include_directories(
+  ${catkin_INCLUDE_DIRS}
 )
 
 

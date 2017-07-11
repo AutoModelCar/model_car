@@ -1,0 +1,1 @@
+/root/catkin_ws/devel/.private/send_steering_light/lib/pkgconfig/send_steering_light.pc

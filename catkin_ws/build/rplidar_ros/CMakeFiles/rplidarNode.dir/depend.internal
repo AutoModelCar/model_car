@@ -22,9 +22,6 @@ CMakeFiles/rplidarNode.dir/sdk/src/hal/thread.cpp.o
  /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/linux/arch_linux.h
  /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/linux/thread.hpp
  /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/linux/timer.h
- /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/macOS/arch_macOS.h
- /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/macOS/thread.hpp
- /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/macOS/timer.h
  /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/win32/arch_win32.h
  /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/win32/timer.h
  /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/win32/winthread.hpp
@@ -39,9 +36,7 @@ CMakeFiles/rplidarNode.dir/sdk/src/rplidar_driver.cpp.o
  /root/catkin_ws/src/rplidar_ros/./sdk/include/rplidar_protocol.h
  /root/catkin_ws/src/rplidar_ros/./sdk/include/rptypes.h
  /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/linux/timer.h
- /root/catkin_ws/src/rplidar_ros/./sdk/src/arch/macOS/timer.h
  /root/catkin_ws/src/rplidar_ros/sdk/src/arch/linux/arch_linux.h
- /root/catkin_ws/src/rplidar_ros/sdk/src/arch/macOS/arch_macOS.h
  /root/catkin_ws/src/rplidar_ros/sdk/src/arch/win32/arch_win32.h
  /root/catkin_ws/src/rplidar_ros/sdk/src/arch/win32/timer.h
  /root/catkin_ws/src/rplidar_ros/sdk/src/hal/abs_rxtx.h

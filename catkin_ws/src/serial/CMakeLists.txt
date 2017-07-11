@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 2.8.3)
-set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS} -lpthread")
 
 project(serial)
 
 # Find catkin
-find_package(catkin REQUIRED)
-
+find_package(catkin REQUIRED COMPONENTS)
+find_package(Threads REQUIRED)
 
 if(UNIX AND NOT APPLE)
     # If Linux, add rt and pthread
