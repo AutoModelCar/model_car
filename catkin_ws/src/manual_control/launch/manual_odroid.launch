@@ -1,10 +1,11 @@
 <launch>
-	<include file="$(find bldc_board_communication)/launch/bldc_board_communication.launch"/>
-  	<include file="$(find motor_communication)/launch/motor_odroid.launch"/>
-	<include file="$(find heading)/launch/heading_odroid.launch"/>
-	<include file="$(find manual_control)/launch/sr300.launch"/>
-        <include file="$(find manual_control)/launch/fish_eye_camera.launch"/>
-        <include file="$(find auto_stop)/launch/auto_stop.launch"/>
-	<include file="$(find rplidar_ros)/launch/rplidar.launch"/>
-	<include file="$(find led_controller)/launch/led_controller.launch"/>
+	<include file="$(find bldc_board_communication)/launch/bldc_board_communication.launch" />
+	<include file="$(find motor_communication)/launch/motor_odroid.launch" />
+	<include file="$(find heading)/launch/heading_odroid.launch" />
+	<include file="$(find odometry)/launch/odometry.launch" />
+	<include file="$(find usb_cam)/launch/usb_cam-test.launch" />
+	<include file="$(find realsense_camera)/launch/sr300_nodelet_rgbd.launch" />
+	<!--include file="$(find auto_stop)/launch/auto_stop.launch"/ -->
+	<include file="$(find rplidar_ros)/launch/rplidar.launch" />
+	<include file="$(find led_controller)/launch/led_controller.launch" />
 </launch>
