@@ -68,7 +68,10 @@ void motor_control::steeringCallback(const std_msgs::Int16 steering_value) {
 	if (steering_value.data >= 0 && steering_value.data <= 180) {
 		int angle = steering_value.data;
 		int pwm = ((steering_max - steering_min) / 180) * angle + steering_min;
-		pub_bldc_steering_.publish(pwm);
+                std_msgs::Int16 msg;
+                msg.data = pwm;
+                pub_bldc_steering_.publish(msg);
+
 	} else {
 		ROS_ERROR("Steering value out of bounds! Allowed min = 0, Allowed max = 180, Value = %i", steering_value.data);
 	}
