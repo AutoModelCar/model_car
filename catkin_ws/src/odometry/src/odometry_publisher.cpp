@@ -32,14 +32,14 @@ void headingCallback(const std_msgs::Float32& msg)
     vth=0.0;
     current_time_twist = ros::Time::now();
     last_time_twist=current_time_twist;
-    th=msg.data* (3.14/180.0);
+    th=msg.data* (-3.14/180.0);
   }
   else
   {
     // last_time_twist=current_time_twist;
     // current_time_twist = ros::Time::now();
     //last_head=head;
-    head=msg.data* (3.14/180.0); //rad
+    head=msg.data* (-3.14/180.0); //rad
     // double dt_twist = (current_time_twist - last_time_twist).toSec();
     double delta_head=head-initial_head;
     if (delta_head>3.14)

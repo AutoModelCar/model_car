@@ -1,0 +1,12 @@
+<launch>
+  <node pkg="control_fu" type="control_node" name="control_node" output="screen">
+    <param name="steering_Kp" value="1.5" />
+    <param name="steering_Kd" value="0.0" />
+    <param name="steering_Ki" value="0.0" />
+    <param name="speed_Kp" value="1" />
+    <param name="maximum_rpm" value="700" />
+    <param name="minimum_rpm" value="20" />
+    <param name="maximum_steering" value="89" />
+    <param name="minimum_steering" value="-89" />
+  </node>
+</launch>

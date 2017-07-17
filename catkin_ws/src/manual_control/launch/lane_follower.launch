@@ -1,0 +1,4 @@
+<launch>
+    <include file="$(find line_detection_fu)/launch/line_detection_fu.launch"/>
+    <include file="$(find control_fu)/launch/control.launch"/>
+</launch>

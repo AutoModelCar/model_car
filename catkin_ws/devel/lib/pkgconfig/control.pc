@@ -1,1 +1,8 @@
-/root/catkin_ws/devel/.private/control/lib/pkgconfig/control.pc
+prefix=/root/catkin_ws/devel/.private/control
+
+Name: control
+Description: Description of control
+Version: 0.0.0
+Cflags: 
+Libs: -L/root/catkin_ws/devel/.private/control/lib 
+Requires: 

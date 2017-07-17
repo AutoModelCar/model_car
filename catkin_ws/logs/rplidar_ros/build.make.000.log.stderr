@@ -1,7 +1,0 @@
-In file included from [01m[K/root/catkin_ws/src/rplidar_ros/sdk/src/arch/linux/net_serial.cpp:38:0[m[K:
-[01m[K/root/catkin_ws/src/rplidar_ros/./sdk/src/arch/linux/net_serial.h:53:82:[m[K [01;35m[Kwarning: [m[Kconverting to non-pointer type ‘[01m[Kuint32_t {aka unsigned int}[m[K’ from NULL [-Wconversion-null]
-     virtual bool bind(const char * portname, uint32_t baudrate, uint32_t flags = NULL);
-[01;32m[K                                                                                  ^[m[K
-[01m[K/root/catkin_ws/src/rplidar_ros/./sdk/src/arch/linux/net_serial.h:73:74:[m[K [01;35m[Kwarning: [m[Kconverting to non-pointer type ‘[01m[Kuint32_t {aka unsigned int}[m[K’ from NULL [-Wconversion-null]
-     bool open(const char * portname, uint32_t baudrate, uint32_t flags = NULL);
-[01;32m[K                                                                          ^[m[K
