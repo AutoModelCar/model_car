@@ -28,7 +28,7 @@ void headingCallback(const std_msgs::Float32& msg)
   {
     init=true;
     head=msg.data* (3.14/180.0); //rad
-    initial_head=head;
+    initial_head=-head;
     vth=0.0;
     current_time_twist = ros::Time::now();
     last_time_twist=current_time_twist;
