@@ -67,7 +67,7 @@ void auto_control::curvatureCallback(const std_msgs::Float32 curvature)
   else
       DesiredSpeed=minimum_rpm_+speed_Kp_*(maximum_rpm_/abs(DesiredSteering));
 
-//  if  (DesiredSpeed>maximum_rpm_)
+  if  (DesiredSpeed>maximum_rpm_)
       DesiredSpeed=maximum_rpm_; 
 
   desired_steering.data=DesiredSteering+90;
