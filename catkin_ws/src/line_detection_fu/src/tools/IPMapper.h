@@ -8,6 +8,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/opencv.hpp>
 #include <opencv2/video/background_segm.hpp>
+#include "FuPoint.h"
 
 using namespace std;
 using namespace cv;
@@ -17,7 +18,9 @@ class IPMapper{
 public:
     IPMapper();
     IPMapper(int outputWidth,int outputHeight, double f_u, double f_v, double c_u, double c_v, double deg, double cam_h);
+    vector<FuPoint<int>>  remap(vector<FuPoint<int>> input);
     Mat remap(Mat input);
+
     //project points ground plane => image
     void invProjectPoints(vector<Point>* points,vector<Point2d>* result);
     
@@ -27,7 +30,7 @@ private:
     int outputWidth,outputHeight;
     
     //Project points image => ground plane
-    void projectPoints(vector<Point>* points,vector<Point2d>* result);
+    void projectPoints(vector<FuPoint<int>>* points,vector<FuPoint<int>>* result);
     
  
     //init the mapping matrix to enable fast remapping of the image

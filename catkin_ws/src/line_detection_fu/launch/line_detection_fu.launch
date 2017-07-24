@@ -1,62 +1,36 @@
 <launch>
-  <!--remap from="lane_model/lane_markings" to="app/camera/rgb/image_raw" /--> 
-
   <node name="line_detection_fu_node" pkg="line_detection_fu" type="line_detection_fu_node" output="screen" >  
     <param name="cam_w"                         type="int"    value="640"/>  
     <param name="cam_h"                         type="int"    value="480"/> <!--we will use only bottom half of this...-->	
 <!-- 	<param name="proj_y_start"            	    type="int"	  value="50"/>
  -->
  <!--go right-->  	
-    <param name="minYPolyRoi"            	type="int"    value="120"/>
-    <param name="slop"                          type="int"    value="140"/>
-    <param name="slop_left"                     type="int"    value="460"/>
-    <param name="defaultXLeft"                  type="int"    value="-5"/>
-    <param name="defaultXRight"                 type="int"    value="480"/>
-    <param name="defaultXCenter"                type="int"    value="222"/>
-    <param name="rotateRight"                   type="bool"   value="1"/>
-    <param name="angleAdjacentLeg"              type="int"    value="300"/>
-    <param name="interestDistanceDefault"       type="int"    value="50"/>
-    <param name="interestDistancePoly"          type="int"    value="35"/>
- 
-    
-<!-- go left-->
-<!--    <param name="minYPolyRoi"                   type="int"    value="120"/>
+   	<param name="minYPolyRoi"            	type="int" 	  value="100"/>
     <param name="slop"                          type="int"    value="100"/>
-    <param name="slop_left"                     type="int"    value="400"/>
-    <param name="defaultXRight"                 type="int"    value="460"/>
-    <param name="defaultXCenter"                type="int"    value="210"/>
-    <param name="defaultXLeft"                  type="int"    value="-35"/>
-    <param name="rotateRight"                   type="bool"    value="0"/>
+    <param name="slop_left"                     type="int"    value="100"/>
+    <param name="defaultXRight"                 type="int"    value="370"/>
+    <param name="defaultXCenter"                type="int"    value="280"/>
+    <param name="defaultXLeft"                  type="int"    value="190"/>
+    <param name="rotateRight"                   type="bool"    value="1"/>
     <param name="angleAdjacentLeg"              type="int"    value="300"/>
-    <param name="interestDistanceDefault"       type="int"    value="50"/>
-
- -->   
-  	<!-- <param name="proj_image_horizontal_offset"  type="int"    value="0"/> -->
- <!--    <param name="roi_top_w"            	        type="int" 	  value="132"/>
-  	<param name="roi_bottom_w"            	    type="int" 	  value="54"/>
-    <param name="maxYRoi"                       type="int"    value="479"/>
-    <param name="minYDefaultRoi"                type="int"    value="0"/>
-    <param name="minYPolyRoi"                   type="int"    value="68"/>
-    <param name="defaultXLeft"                  type="int"    value="20"/>
-    <param name="defaultXCenter"                type="int"    value="60"/>
-    <param name="defaultXRight"                 type="int"    value="100"/>
-    <param name="interestDistancePoly"          type="int"    value="5"/>
     <param name="interestDistanceDefault"       type="int"    value="20"/>
-    <param name="iterationsRansac"              type="int"    value="30"/>
-    <param name="proportionThreshould"          type="double" value="0.6"/>
-    <param name="m_gradientThreshold"           type="int"    value="8"/>
-    <param name="m_nonMaxWidth"                 type="int"    value="10"/>
-    <param name="laneMarkingSquaredThreshold"   type="int"    value="36"/>
-    <param name="angleAdjacentLeg"              type="int"    value="18"/>
-    <param name="scanlinesVerticalDistance"     type="int"    value="2"/>
-    <param name="scanlinesMaxCount"             type="int"    value="100"/>
-    <param name="polyY1"                        type="int"    value="155"/>
-    <param name="polyY2"                        type="int"    value="145"/>    
-    <param name="polyY3"                        type="int"    value="130"/>    
-    <param name="detectLaneStartX"              type="int"    value="155"/> --> <!--this was originally 0.7m, which is about 90 in our case... used for gradient computation, might help us to get rid of too crazy polynomials-->
-    <!--param name="maxAngleDiff"                  type="int"    value="15"/-->
+    <param name="interestDistancePoly"          type="int"    value="20"/> 
 
-    <param name="camera_name"     		type="string"   value="/app/camera/rgb/image_raw"/>      
+    
+<!-- go left +80 -->
+<!--<param name="minYPolyRoi"                   type="int"    value="50"/>
+    <param name="slop"                          type="int"    value="100"/>
+    <param name="slop_left"                     type="int"    value="320"/>
+    <param name="defaultXRight"                 type="int"    value="420"/>
+    <param name="defaultXCenter"                type="int"    value="130"/>
+    <param name="defaultXLeft"                  type="int"    value="-174"/>
+    <param name="rotateRight"                   type="bool"   value="0"/>
+    <param name="angleAdjacentLeg"              type="int"    value="300"/>
+    <param name="interestDistanceDefault"       type="int"    value="50"/>-->
 
+
+    <param name="camera_name"     		type="string"   value="/app/camera/rgb/image_raw"/>
   </node>
+s
+</group>
 </launch>

@@ -3,7 +3,7 @@
 using namespace std;
 
 // #define PAINT_OUTPUT
-#define PUBLISH_DEBUG_OUTPUT
+// #define PUBLISH_DEBUG_OUTPUT
 
 static const uint32_t MY_ROS_QUEUE_SIZE = 1;
 
@@ -69,29 +69,29 @@ cLaneDetectionFu::cLaneDetectionFu(ros::NodeHandle nh)
     priv_nh_.param<int>(node_name+"/polyY2", polyY2, 130);
     priv_nh_.param<int>(node_name+"/polyY3", polyY3, 200);
 
-    priv_nh_.param<int>(node_name+"/slop", slop, 80);
-    priv_nh_.param<int>(node_name+"/slop_left", slop_left, 700);
+    priv_nh_.param<int>(node_name+"/slop", slop, 100);
+    priv_nh_.param<int>(node_name+"/slop_left", slop_left, 100);
 
     priv_nh_.param<bool>(node_name+"/rotateRight", rotateRight, 1);
 
 
 
-    // double f_u;
-    // double f_v;
-    // double c_u;
-    // double c_v;
-    // double cam_deg;
-    // double cam_height;
+    double f_u;
+    double f_v;
+    double c_u;
+    double c_v;
+    double cam_deg;
+    double cam_height;
     int cam_h_half = cam_h/2;
 
-    // priv_nh_.param<double>(node_name+"/f_u", f_u, 624.650635); 
-    // priv_nh_.param<double>(node_name+"/f_v", f_v, 626.987244); 
-    // priv_nh_.param<double>(node_name+"/c_u", c_u, 309.703230); 
-    // priv_nh_.param<double>(node_name+"/c_v", c_v, 231.473613); 
-    // priv_nh_.param<double>(node_name+"/cam_deg", cam_deg, 27); 
-    // priv_nh_.param<double>(node_name+"/cam_height", cam_height, 18);
+    priv_nh_.param<double>(node_name+"/f_u", f_u, 624.650635); 
+    priv_nh_.param<double>(node_name+"/f_v", f_v, 626.987244); 
+    priv_nh_.param<double>(node_name+"/c_u", c_u, 309.703230); 
+    priv_nh_.param<double>(node_name+"/c_v", c_v, 231.473613); 
+    priv_nh_.param<double>(node_name+"/cam_deg", cam_deg, 24); 
+    priv_nh_.param<double>(node_name+"/cam_height", cam_height, 30);
 
-    // ipMapper = IPMapper(cam_w, cam_h, f_u, f_v, c_u, c_v, cam_deg, cam_height);
+    ipMapper = IPMapper(cam_w, cam_h, f_u, f_v, c_u, c_v, cam_deg, cam_height);
 
 
 
@@ -256,8 +256,7 @@ void cLaneDetectionFu::ProcessInput(const sensor_msgs::Image::ConstPtr& msg)
 
     //edges -> lane markings
     vector<FuPoint<int>> laneMarkings = cLaneDetectionFu::extractLaneMarkings(edges);
-
-    //---------------------- DEBUG OUTPUT LANE MARKINGS ---------------------------------//
+     //---------------------- DEBUG OUTPUT LANE MARKINGS ---------------------------------//
     #ifdef PAINT_OUTPUT
         transformedImagePaintable = image.clone();
         cv::cvtColor(transformedImagePaintable,transformedImagePaintable,CV_GRAY2BGR);
@@ -273,12 +272,35 @@ void cLaneDetectionFu::ProcessInput(const sensor_msgs::Image::ConstPtr& msg)
     #endif
     //---------------------- END DEBUG OUTPUT LANE MARKINGS ------------------------------//
 
+    vector<FuPoint<int>> remapped_markers= ipMapper.remap(laneMarkings);
+
+    //---------------------- DEBUG OUTPUT REMAPPED LANE MARKINGS ---------------------------------//
+
+    #ifdef PAINT_OUTPUT
+
+        Mat remapped_image = ipMapper.remap(image);
+        transformedImagePaintable = remapped_image.clone();
+        cv::cvtColor(transformedImagePaintable,transformedImagePaintable,CV_GRAY2BGR);
+        for(int i = 0; i < (int)remapped_markers.size(); i++)
+        {         
+            FuPoint<int> marking = remapped_markers[i];
+            cv::Point markingLoc = cv::Point(marking.getX(), marking.getY());
+            cv::circle(transformedImagePaintable,markingLoc,transformedImagePaintable.cols/1000,cv::Scalar(0,255,0),-1);         
+        }
+
+        cv::imshow("Remapped Lane Markings", transformedImagePaintable);
+        cv::waitKey(1);
+
+    #endif
+   
+    //---------------------- END DEBUG OUTPUT REMAPPED LANE MARKINGS ------------------------------//
+
     // start actual execution
-    buildLaneMarkingsLists(laneMarkings);
+    buildLaneMarkingsLists(remapped_markers);
 
     //---------------------- DEBUG OUTPUT GROUPED LANE MARKINGS ---------------------------------//
     #ifdef PUBLISH_DEBUG_OUTPUT
-        transformedImagePaintable = image.clone();
+        transformedImagePaintable = remapped_image.clone();
         cv::cvtColor(transformedImagePaintable,transformedImagePaintable,CV_GRAY2BGR);
         for(int i = 0; i < (int)laneMarkingsLeft.size(); i++)
         {         
@@ -299,16 +321,16 @@ void cLaneDetectionFu::ProcessInput(const sensor_msgs::Image::ConstPtr& msg)
             cv::circle(transformedImagePaintable,markingLoc,transformedImagePaintable.cols/100,cv::Scalar(255,0,0),-1);         
         }
 
-        cv::Point2d p1l(defaultXLeft+slop_left,1);
-        cv::Point2d p2l(defaultXLeft-slop_left,maxYRoi-1);
+        cv::Point2d p1l(defaultXLeft,1);
+        cv::Point2d p2l(defaultXLeft,maxYRoi-1);
         cv::line(transformedImagePaintable,p1l,p2l,cv::Scalar(0,0,255));
 
-        cv::Point2d p1c(defaultXCenter+slop,1);
-        cv::Point2d p2c(defaultXCenter-slop,maxYRoi-1);
+        cv::Point2d p1c(defaultXCenter,1);
+        cv::Point2d p2c(defaultXCenter,maxYRoi-1);
         cv::line(transformedImagePaintable,p1c,p2c,cv::Scalar(0,255,0));
 
-        cv::Point2d p1r(defaultXRight-slop,1);
-        cv::Point2d p2r(defaultXRight+slop,maxYRoi-1);
+        cv::Point2d p1r(defaultXRight,1);
+        cv::Point2d p2r(defaultXRight,maxYRoi-1);
         cv::line(transformedImagePaintable,p1r,p2r,cv::Scalar(255,0,0));
 
         cv::Point2d p1(maxXRoi_half-(roi_bottom_w/2),maxYRoi-1);
@@ -334,7 +356,7 @@ void cLaneDetectionFu::ProcessInput(const sensor_msgs::Image::ConstPtr& msg)
 
     //---------------------- DEBUG OUTPUT RANSAC POLYNOMIALS ---------------------------------//
     #ifdef PUBLISH_DEBUG_OUTPUT
-        cv::Mat transformedImagePaintableRansac = image.clone();
+        cv::Mat transformedImagePaintableRansac = remapped_image.clone();
         cv::cvtColor(transformedImagePaintableRansac,transformedImagePaintableRansac,CV_GRAY2BGR);
         for(int i = minYPolyRoi; i < maxYRoi; i++)
         {
@@ -359,49 +381,51 @@ void cLaneDetectionFu::ProcessInput(const sensor_msgs::Image::ConstPtr& msg)
 
     pubAngle();
 
-    cv::Mat transformedImagePaintableLaneModel = image.clone();
-    cv::cvtColor(transformedImagePaintableLaneModel,transformedImagePaintableLaneModel,CV_GRAY2BGR);
+    #ifdef PUBLISH_DEBUG_OUTPUT
 
-    if (lanePolynomial.hasDetected()) {
-        int r = lanePolynomial.getLastUsedPosition() == LEFT ? 255 : 0;
-        int g = lanePolynomial.getLastUsedPosition() == CENTER ? 255 : 0;
-        int b = lanePolynomial.getLastUsedPosition() == RIGHT ? 255 : 0;
+        cv::Mat transformedImagePaintableLaneModel = remapped_image.clone();
+        cv::cvtColor(transformedImagePaintableLaneModel,transformedImagePaintableLaneModel,CV_GRAY2BGR);
 
-        
-        for(int i = minYPolyRoi; i < maxYRoi; i++)
-        {
-            cv::Point pointLoc = cv::Point(lanePolynomial.getLanePoly().at(i)+maxYRoi_half, i);
-            cv::circle(transformedImagePaintableLaneModel,pointLoc,0,cv::Scalar(b,g,r),-1);
-        }     
+        if (lanePolynomial.hasDetected()) {
+            int r = lanePolynomial.getLastUsedPosition() == LEFT ? 255 : 0;
+            int g = lanePolynomial.getLastUsedPosition() == CENTER ? 255 : 0;
+            int b = lanePolynomial.getLastUsedPosition() == RIGHT ? 255 : 0;
 
-        std::vector<FuPoint<int>> supps = lanePolynomial.getLastUsedPosition() == LEFT 
-            ? supportersLeft 
-            : lanePolynomial.getLastUsedPosition() == CENTER ? supportersCenter : supportersRight;
+            
+            for(int i = minYPolyRoi; i < maxYRoi; i++)
+            {
+                cv::Point pointLoc = cv::Point(lanePolynomial.getLanePoly().at(i)+maxYRoi_half, i);
+                cv::circle(transformedImagePaintableLaneModel,pointLoc,0,cv::Scalar(b,g,r),-1);
+            }     
 
-        for(int i = 0; i < (int)supps.size(); i++)
-        {         
-            FuPoint<int> supp = supps[i];
-            cv::Point suppLoc = cv::Point(supp.getX(), supp.getY());
-            cv::circle(transformedImagePaintableLaneModel,suppLoc,1,cv::Scalar(b,g,r),-1);         
-        }    
+            std::vector<FuPoint<int>> supps = lanePolynomial.getLastUsedPosition() == LEFT 
+                ? supportersLeft 
+                : lanePolynomial.getLastUsedPosition() == CENTER ? supportersCenter : supportersRight;
 
-        cv::Point pointLoc = cv::Point(maxXRoi_half,proj_image_h);
-        cv::circle(transformedImagePaintableLaneModel,pointLoc,2,cv::Scalar(0,0,255),-1); 
+            for(int i = 0; i < (int)supps.size(); i++)
+            {         
+                FuPoint<int> supp = supps[i];
+                cv::Point suppLoc = cv::Point(supp.getX(), supp.getY());
+                cv::circle(transformedImagePaintableLaneModel,suppLoc,1,cv::Scalar(b,g,r),-1);         
+            }    
 
-        cv:Point anglePointLoc = cv::Point(sin(lastAngle*PI/180)*angleAdjacentLeg+maxXRoi_half,proj_image_h-angleAdjacentLeg);
-        cv::line(transformedImagePaintableLaneModel,pointLoc,anglePointLoc,cv::Scalar(255,255,255));
-    } else {
-        cv::Point pointLoc = cv::Point(5,5);
-        cv::circle(transformedImagePaintableLaneModel,pointLoc,3,cv::Scalar(0,0,255),0);
-    }
+            cv::Point pointLoc = cv::Point(maxXRoi_half,proj_image_h);
+            cv::circle(transformedImagePaintableLaneModel,pointLoc,2,cv::Scalar(0,0,255),-1); 
 
-    pubRGBImageMsg(transformedImagePaintableLaneModel, image_publisher);
+            cv:Point anglePointLoc = cv::Point(sin(lastAngle*PI/180)*angleAdjacentLeg+maxXRoi_half,proj_image_h-angleAdjacentLeg);
+            cv::line(transformedImagePaintableLaneModel,pointLoc,anglePointLoc,cv::Scalar(255,255,255));
+        } else {
+            cv::Point pointLoc = cv::Point(5,5);
+            cv::circle(transformedImagePaintableLaneModel,pointLoc,3,cv::Scalar(0,0,255),0);
+        }
 
-    //---------------------- DEBUG OUTPUT LANE POLYNOMIAL ---------------------------------//
-    #ifdef PAINT_OUTPUT
-        
-        cv::imshow("Lane polynomial", transformedImagePaintableLaneModel);
-        cv::waitKey(1);
+        pubRGBImageMsg(transformedImagePaintableLaneModel, image_publisher);
+        //---------------------- DEBUG OUTPUT LANE POLYNOMIAL ---------------------------------//
+        #ifdef PAINT_OUTPUT
+            
+            cv::imshow("Lane polynomial", transformedImagePaintableLaneModel);
+            cv::waitKey(1);
+        #endif
     #endif
     //---------------------- END DEBUG OUTPUT LANE POLYNOMIAL ------------------------------//
 }
@@ -753,13 +777,13 @@ int cLaneDetectionFu::horizDistanceToDefaultLine(ePosition &line, FuPoint<int> &
     double cols_half=(double)cam_h/2.0;
     switch (line) {
     case LEFT:
-        distance = std::abs(pX - defaultXLeft + ((pY-cols_half)/(cols_half/slop_left)));
+        distance = std::abs(pX - defaultXLeft );
         break;
     case CENTER:
-        distance = std::abs(pX - defaultXCenter  + ((pY-cols_half)/(cols_half/slop)));
+        distance = std::abs(pX - defaultXCenter);
         break;
     case RIGHT:
-        distance = std::abs(pX - defaultXRight-((pY-cols_half)/(cols_half/slop)));
+        distance = std::abs(pX - defaultXRight);
         break;
     }
 
@@ -795,7 +819,7 @@ bool cLaneDetectionFu::isInDefaultRoi(ePosition position, FuPoint<int> &p) {
         return false;
     }
     else if (horizDistanceToDefaultLine(position, p)
-            <= interestDistanceDefault-(pow((maxYRoi-p.getY()),2)/(slop*(interestDistanceDefault-10)))) {
+            <= interestDistanceDefault-(pow((maxYRoi-p.getY()),2)/(slop*(interestDistanceDefault-5)))) {
         return true;
     }
     else {
@@ -1031,8 +1055,7 @@ void cLaneDetectionFu::createLanePoly(ePosition position) {
         dRight = defaultXRight;
         // ROS_INFO("RIGHT");
     }
-
-    //ROS_INFO("x0 240 y0 %f x1 480 y1 %f slop %f",usedPoly.at(240), usedPoly.at(480),usedPoly.at(480)-usedPoly.at(240));
+    // ROS_INFO("x0 240 y0 %f x1 480 y1 %f slop %f",usedPoly.at(240), usedPoly.at(480),usedPoly.at(480)-usedPoly.at(240));
 
     pointRight1 = FuPoint<double>(x1, usedPoly.at(x1) - dRight);
     pointRight2 = FuPoint<double>(x2, usedPoly.at(x2) - dRight);

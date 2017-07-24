@@ -1,24 +1,36 @@
 #include "IPMapper.h"
+
 //#include <ros/ros.h>
 
+
+vector<FuPoint<int>> IPMapper::remap(vector<FuPoint<int>> input)
+{	
+    vector<FuPoint<int>> result;
+    projectPoints(&input, &result);    
+    return result;
+}
 
 Mat IPMapper::remap(Mat input)
 {	
     Mat remappedImage(outputHeight,outputWidth,CV_8UC1,Scalar(0));
     
-    for(int y = 0;y < outputHeight;y++)
+    for(int y = 0;y < outputHeight/3;y++)
     {
-        for(int x = 0;x < outputWidth;x++)
+        for(int x = outputWidth/3;x < 2*outputWidth/3;x++)
         {
             Point toCopy = mappingMatrix(y,x);
             if(toCopy.x >= 0 && toCopy.y >= 0 && toCopy.y < input.rows && toCopy.x < input.cols)
             {
-                remappedImage.at<uchar>(y,x) = input.at<uchar>(toCopy.y,toCopy.x);
+                remappedImage.at<uchar>(outputHeight-1-y*3,(x-outputWidth/2)*3+outputWidth/2) = input.at<uchar>(toCopy.y,toCopy.x);
+                remappedImage.at<uchar>(outputHeight-1-y*3-1,(x-outputWidth/2)*3+outputWidth/2+1) = input.at<uchar>(toCopy.y,toCopy.x);
+                remappedImage.at<uchar>(outputHeight-1-y*3-2,(x-outputWidth/2)*3+outputWidth/2+2) = input.at<uchar>(toCopy.y,toCopy.x);
+
+
             }
         }
     }
     
-      //GaussianBlur(remappedImage, remappedImage, Size(5,5),1);
+    GaussianBlur(remappedImage, remappedImage, Size(5,5),1);
     
     return remappedImage;
 }
@@ -32,16 +44,10 @@ IPMapper::IPMapper(int ow, int oh, double _f_u, double _f_v, double _c_u, double
     
     //CAMERA PARAMETERS:
     f_u = _f_u;//624.650635;//524.692545;                           //focal lense values (mm)
-    f_v = -_f_v;//626.987244;//524.692545;
+    f_v = _f_v;//626.987244;//524.692545;
     
     c_u = _c_u;//309.703230;//319.5;                           //camera optical center
     c_v = _c_v;//231.473613;//239.5;
-
-    // f_u = 1;//624.650635;//524.692545;                           //focal lense values (mm)
-    // f_v = 1;//626.987244;//524.692545;
-    
-    // c_u = 1;//309.703230;//319.5;                           //camera optical center
-    // c_v = 1;//231.473613;//239.5;
 
     double pi = 3.1415926;
     //double deg = d//27;
@@ -91,17 +97,17 @@ void IPMapper::initMappingMatrix(Mat_<cv::Point>* pointMatrix)
     }
 }
 
-void IPMapper::projectPoints(vector<Point>* points,vector<Point2d>* result)
+void IPMapper::projectPoints(vector<FuPoint<int>>* points,vector<FuPoint<int>>* result)
 {
     //for each lane marking
     for(int i = 0;i < points->size();i++)
     {
-        Point currPoint = points->at(i);
-        Mat P_I = (Mat_<double>(4,1) << currPoint.x,currPoint.y,1,1);
+        FuPoint<int> currPoint = points->at(i);
+        Mat P_I = (Mat_<double>(4,1) << currPoint.getX(),currPoint.getY(),1,1);
         Mat P_G = T*P_I;
         P_G /= P_G.at<double>(3);
         
-        Point2d transformedPoint(P_G.at<double>(0),P_G.at<double>(1));
+        FuPoint<int> transformedPoint=FuPoint<int>(P_G.at<double>(0)*3+outputWidth/2,outputHeight-1-P_G.at<double>(1)*3);
         result->push_back(transformedPoint);
     }
 }
