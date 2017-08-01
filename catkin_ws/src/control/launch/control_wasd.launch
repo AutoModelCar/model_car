@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="control" type="control_wasd" name="control_wasd" output="screen" />
+</launch>
