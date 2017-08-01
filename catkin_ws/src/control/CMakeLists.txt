@@ -74,7 +74,10 @@ include_directories(
 add_executable(control_node src/control_node.cpp)
 #add_dependencies(control_node ${PROJECT_NAME})
 target_link_libraries(control_node ${catkin_LIBRARIES})
- 
+
+add_executable( control_wasd src/control_wasd.cpp )
+target_link_libraries( control_wasd ${catkin_LIBRARIES} )
+
 #############
 ## Install ##
 #############
@@ -90,7 +93,7 @@ target_link_libraries(control_node ${catkin_LIBRARIES})
 # )
 
 ## Mark executables and/or libraries for installation
-install(TARGETS control_node
+install(TARGETS control_node control_wasd
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
