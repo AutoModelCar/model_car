@@ -17,7 +17,9 @@ roscore &
 sleep 5
 
 ### Start ROS launch scripts
+timeout 10 roslaunch realsense_camera realsense_sr300.launch
 roslaunch manual_control manual_odroid.launch &
+#roslaunch random_movement auto.launch
 
 ### Start Web Control Center
 #/root/web-control-center/start-server.sh &
