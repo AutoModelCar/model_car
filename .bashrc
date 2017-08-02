@@ -41,7 +41,7 @@ export PATH=$PATH:/root:/sbin:/usr/sbin:/usr/local/sbin
 
 # Look for libraries in local folder as well
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}.
-IP=192.168.43.102
+IP=192.168.43.121
 export ROS_IP=$IP
 export ROS_HOSTNAME=$IP
 export ROS_MASTER_URI=http://$IP:11311
