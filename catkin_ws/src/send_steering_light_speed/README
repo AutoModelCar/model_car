@@ -1,5 +1,5 @@
 ##test
 
-	roslaunch send_steering servo.launch 
+	roslaunch send_steering_light_speed servo_light_odroid.launch
 
  	rostopic pub -r 1 /manual_control/steering std_msgs/Int16 '{data: 160}'
