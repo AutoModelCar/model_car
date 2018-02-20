@@ -26,7 +26,7 @@ void bldc_board_communication::start() {
 }
 
 void bldc_board_communication::run(float speed) {
-	speedHandle  = speed;
+	speedHandle = -speed;
 }
 
 void bldc_board_communication::steer(int steering) {
