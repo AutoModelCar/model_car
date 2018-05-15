@@ -1,23 +1,19 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(odometry)
 
-find_package(catkin REQUIRED COMPONENTS nav_msgs std_msgs roscpp tf)
+find_package(catkin REQUIRED COMPONENTS nav_msgs std_msgs roscpp tf fub_modelcar_tools)
 
-catkin_package()
+catkin_package(
+    CATKIN_DEPENDS
+        nav_msgs
+        std_msgs)
 
 
 include_directories(${catkin_INCLUDE_DIRS})
 
 # Build the executable
 add_executable(odometry_publisher src/odometry_publisher.cpp)
-# Add a build order dependency on nav_msgs
-# This ensures that nav_msgs' msg headers are built before your executable
-if(nav_msgs_EXPORTED_TARGETS)
-  add_dependencies(odometry_publisher ${nav_msgs_EXPORTED_TARGETS})
-endif()
-if(std_msgs_EXPORTED_TARGETS)
-  add_dependencies(odometry_publisher ${std_msgs_EXPORTED_TARGETS})
-endif()
+
 # Link against the catkin libraries
 target_link_libraries(odometry_publisher ${catkin_LIBRARIES})
 
@@ -27,7 +23,7 @@ install(TARGETS odometry_publisher
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 ## Mark cpp header files for installation
-install(DIRECTORY launch
+install(DIRECTORY cfg launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
   USE_SOURCE_PERMISSIONS
 )
