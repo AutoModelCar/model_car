@@ -1,5 +1,0 @@
-control_fu
-/root/catkin_ws/devel/.private/control_fu/share/control_fu/cmake/control_fuConfig-version.cmake /root/catkin_ws/devel/share/control_fu/cmake/control_fuConfig-version.cmake
-/root/catkin_ws/devel/.private/control_fu/share/control_fu/cmake/control_fuConfig.cmake /root/catkin_ws/devel/share/control_fu/cmake/control_fuConfig.cmake
-/root/catkin_ws/devel/.private/control_fu/lib/pkgconfig/control_fu.pc /root/catkin_ws/devel/lib/pkgconfig/control_fu.pc
-/root/catkin_ws/devel/.private/control_fu/lib/control_fu/control_node /root/catkin_ws/devel/lib/control_fu/control_node

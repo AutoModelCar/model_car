@@ -1,8 +1,0 @@
-prefix=/root/catkin_ws/devel/.private/control_fu
-
-Name: control_fu
-Description: Description of control_fu
-Version: 0.0.0
-Cflags: 
-Libs: -L/root/catkin_ws/devel/.private/control_fu/lib 
-Requires: 
