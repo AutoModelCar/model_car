@@ -75,7 +75,8 @@ void motor_communication::run(int speed)
 {
     try
     {
-      std::string speed_string = std::to_string(speed);;
+	  speed = speed * -1;
+	  std::string speed_string = std::to_string(speed);;
           string test_string="v"+ speed_string +"\r\n";
           bytes_wrote =my_serial.write(test_string);
                 // TODO: find out if result string is actually needed.
@@ -134,7 +135,7 @@ double motor_communication::getSpeed()
     std::stringstream ss(result);
     double velocity;
     ss >> velocity; //string to double
-		return velocity;
+		return velocity * -1;
 	}
 	catch(const std::exception& e)
 	{
