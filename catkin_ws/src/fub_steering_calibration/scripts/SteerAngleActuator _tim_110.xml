@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<!DOCTYPE boost_serialization>
+<boost_serialization signature="serialization::archive" version="12">
+<myPair class_id="0" tracking_level="0" version="0">
+	<count>7</count>
+	<item_version>0</item_version>
+	<item class_id="1" tracking_level="0" version="0">
+		<command>0</command>
+		<raduis>0.6275275772906183</raduis>
+		<steering>-0.42720038816636163</steering>
+		<feedback>399.0</feedback>
+	</item>
+	<item>
+		<command>30</command>
+		<raduis>0.7873044479871822</raduis>
+		<steering>-0.3365586081423624</steering>
+		<feedback>361.7586206896552</feedback>
+	</item>
+	<item>
+		<command>60</command>
+		<raduis>1.337051200458985</raduis>
+		<steering>-0.19570464167755747</steering>
+		<feedback>326.39285714285717</feedback>
+	</item>
+	<item>
+		<command>90</command>
+		<raduis>8.720931997674372</raduis>
+		<steering>-0.029817745585451555</steering>
+		<feedback>289.1666666666667</feedback>
+	</item>
+	<item>
+		<command>120</command>
+		<raduis>1.758019112461242</raduis>
+		<steering>0.14843824001565342</steering>
+		<feedback>252.20833333333334</feedback>
+
+	</item>
+	<item>
+		<command>150</command>
+		<raduis>0.7106804641608463</raduis>
+		<steering>0.37454225517175765</steering>
+		<feedback>217.12</feedback>
+
+	</item>
+	<item>
+		<command>180</command>
+		<raduis>0.5954372732785643</raduis>
+		<steering>0.4518758674840667</steering>
+		<feedback>184.03703703703704</feedback>
+	</item>
+</myPair>
+</boost_serialization>

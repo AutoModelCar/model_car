@@ -40,7 +40,7 @@ ros::Time current_time_twist, last_time_twist;
 
 void twistCallback(const geometry_msgs::Twist& msg)
 {
-  float v_=round(msg.linear.x / (5.5))*31;//rad/ms and gear ratio: 5.5  and the wheel Radius 31 centimeter
+  float v_=round(msg.linear.x /(9.54929659643*5.5))*31;//9.54929659643 rpm = 1rad/s and gear ratio: 5.5  and the wheel Radius 31 centimeter
   v = roundf(v_ * 100) / 100;  /* Result: xx.xx */
 }
 void headingCallback(const std_msgs::Float32& msg)

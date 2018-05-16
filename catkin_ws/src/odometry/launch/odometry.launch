@@ -2,13 +2,13 @@
  	<node pkg="odometry" type="odometry_publisher" name="odometry_publisher" output="screen">
  		<param name="file_name" value="$(find odometry)/cfg/SteerAngleActuator.xml" />
 		<param name="model_car_yaw" value="/yaw" />
-		<param name="model_car_twist" value="/motor_control/twist" />
+		<param name="model_car_twist" value="/twist" />
 		<param name="steering_command" value="/steering" />
 		<param name="initial_x" value="0.0" />   <!--meters-->
 		<param name="initial_y" value="0.0" />   <!--meters-->
 		<param name="initial_yaw" value="0.0" /> <!--radian-->
 		<param name="bicycle_model" value="true" /> <!--use just bicycle model-->
-		<param name="servo_with_feedback" value="false" />
+		<param name="servo_with_feedback" value="false" /> <!--use just bicycle model-->
 
 	</node>
 </launch>
