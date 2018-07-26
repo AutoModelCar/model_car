@@ -6,10 +6,10 @@ project(heading)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED roscpp serial std_msgs)
-find_package(serial REQUIRED) 
+find_package(serial REQUIRED)
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
- 
+
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
@@ -17,7 +17,7 @@ find_package(serial REQUIRED)
 #######################################
 ## Declare ROS messages and services ##
 #######################################
- 
+
 ## Generate messages in the 'msg' folder
 # add_message_files(
 #   FILES
@@ -70,16 +70,13 @@ include_directories(
 
 ## Declare a cpp library
 add_library(${PROJECT_NAME} src/heading.cpp)
-
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 
 ## Declare a cpp executable
-# add_executable(object_node src/object_node.cpp)
 add_executable(heading_node src/heading_node.cpp)
-#add_dependencies(heading_node ${PROJECT_NAME})
+add_dependencies(heading_node ${PROJECT_NAME})
 target_link_libraries(heading_node ${PROJECT_NAME} ${catkin_LIBRARIES})
 
- 
 #############
 ## Install ##
 #############
@@ -96,7 +93,7 @@ target_link_libraries(heading_node ${PROJECT_NAME} ${catkin_LIBRARIES})
 
 
 ## Mark executables and/or libraries for installation
-install(TARGETS  heading_node
+install(TARGETS  ${PROJECT_NAME} heading_node
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -109,7 +106,7 @@ install(DIRECTORY include/${PROJECT_NAME}/
 )
 
 install(DIRECTORY launch
-  DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
   USE_SOURCE_PERMISSIONS
 )
 
