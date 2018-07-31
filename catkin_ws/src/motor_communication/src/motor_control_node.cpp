@@ -13,9 +13,9 @@ class motor_control
   public:
     motor_control(ros::NodeHandle nh) : nh_(nh)
     {
-      sub_speed_ = nh_.subscribe( "motor_control/speed", 1, &motor_control::motorSpeedCallback,this);
-      sub_stop_ = nh_.subscribe( "motor_control/stop_start", 1,  &motor_control::motorStopStartCallback,this);
-      pub_velocity_=nh_.advertise<geometry_msgs::Twist>(nh_.resolveName("/twist"), 1);
+      sub_speed_ = nh_.subscribe( "/motor_control/speed", 1, &motor_control::motorSpeedCallback,this);
+      sub_stop_ = nh_.subscribe( "/motor_control/stop_start", 1,  &motor_control::motorStopStartCallback,this);
+      pub_velocity_=nh_.advertise<geometry_msgs::Twist>(nh_.resolveName("/motor_control/twist"), 1);
     }
     ~motor_control(){}
     void motorSpeedCallback(const std_msgs::Int16 speed_value);

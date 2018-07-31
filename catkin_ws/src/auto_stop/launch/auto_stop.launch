@@ -4,5 +4,9 @@
 	  	<param name="angle_back"		type="int" 		value="35"/>		
 	  	<param name="break_distance"    type="double"	value="0.4"/>
 	  	<param name="break_distance_based_on_speed"		type="bool"		 	value="false"/>
+		<remap from="/speed" to="speed"/>
+		<remap from="/twist" to="twist"/>
+		<remap from="/scan"   to="scan"/>
+		<remap from="/manual_control/speed" to="manual_control/speed"/>
 	</node>
 </launch>

@@ -1,9 +1,13 @@
 <launch>
  	<node pkg="odometry" type="odometry_publisher" name="odometry_publisher" output="screen">
  		<param name="file_name" value="$(find odometry)/cfg/SteerAngleActuator.xml" />
-		<param name="model_car_yaw" value="/yaw" />
-		<param name="model_car_twist" value="/twist" />
-		<param name="steering_command" value="/steering" />
+		<param name="/model_car_yaw" value="/yaw" />
+		<param name="/model_car_twist" value="/twist" />
+		<param name="/steering_command" value="/steering" />
+		<remap from="/odom" to="odom"/>
+		<remap from="/steering" to="steering"/>
+		<remap from="/yaw" to="yaw"/>
+		<remap from="/twist" to="twist"/>
 		<param name="initial_x" value="0.0" />   <!--meters-->
 		<param name="initial_y" value="0.0" />   <!--meters-->
 		<param name="initial_yaw" value="0.0" /> <!--radian-->
